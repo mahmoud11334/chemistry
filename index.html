@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>معطي الكيمياء</title>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=117206&format=png&color=000000">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --bg2:#ffffff;
+      --text:#141414;
+      --muted:#6c6c6c;
+      --card:#ffffff;
+      --border:rgba(0,0,0,.08);
+      --shadow:0 20px 50px rgba(0,0,0,.08);
+      --shadow2:0 12px 30px rgba(0,0,0,.08);
+      --primary:#2f6bff;
+      --primary2:#5b8dff;
+      --danger:#ff3b3b;
+      --gold:#ffcc33;
+      --glass:rgba(255,255,255,.7);
+      --blur:blur(14px);
+      --radius:22px;
+    }
+
+    body.dark{
+      --bg:#07090f;
+      --bg2:#0d101a;
+      --text:#f2f3f7;
+      --muted:#a6adbb;
+      --card:rgba(20,22,32,.75);
+      --border:rgba(255,255,255,.08);
+      --shadow:0 20px 60px rgba(0,0,0,.55);
+      --shadow2:0 12px 30px rgba(0,0,0,.45);
+      --primary:#4c83ff;
+      --primary2:#7aa1ff;
+      --danger:#ff5151;
+      --gold:#ffd24a;
+      --glass:rgba(20,22,32,.55);
+      --blur:blur(16px);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Cairo", sans-serif;
+    }
+
+    body{
+      background:radial-gradient(circle at 20% 10%, rgba(47,107,255,.12), transparent 60%),
+                 radial-gradient(circle at 80% 20%, rgba(120,60,255,.12), transparent 60%),
+                 radial-gradient(circle at 50% 100%, rgba(47,107,255,.08), transparent 65%),
+                 var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+      transition:background .5s ease, color .4s ease;
+    }
+
+    .page{
+      width:100%;
+      max-width:1250px;
+      margin:auto;
+      padding:22px 16px 0;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:16px 18px;
+      border-radius:var(--radius);
+      background:var(--glass);
+      backdrop-filter:var(--blur);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow2);
+      position:sticky;
+      top:14px;
+      z-index:999;
+      animation:slideDown .8s ease forwards;
+    }
+
+    @keyframes slideDown{
+      from{transform:translateY(-20px); opacity:0;}
+      to{transform:translateY(0); opacity:1;}
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .logo{
+      width:48px;
+      height:48px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow:0 12px 25px rgba(47,107,255,.25);
+      position:relative;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+
+    .logo::after{
+      content:"";
+      position:absolute;
+      inset:-80%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transform:rotate(25deg);
+      animation:shine 4s infinite;
+    }
+
+    @keyframes shine{
+      0%{transform:translateX(-60%) rotate(25deg);}
+      100%{transform:translateX(60%) rotate(25deg);}
+    }
+
+    .logo i{
+      font-size:19px;
+      color:white;
+      z-index:2;
+    }
+
+    .brandText{
+      min-width:0;
+    }
+
+    .brandText h1{
+      font-size:15px;
+      font-weight:900;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .brandText p{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:-2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:10px 14px;
+      border-radius:16px;
+      font-size:13px;
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition:.25s ease;
+      background:var(--card);
+      color:var(--text);
+      border:1px solid var(--border);
+      box-shadow:0 10px 22px rgba(0,0,0,.06);
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 35px rgba(0,0,0,.12);
+    }
+
+    .btn:active{
+      transform:translateY(1px) scale(.98);
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg, var(--primary), var(--primary2));
+      color:white;
+      border:none;
+      box-shadow:0 14px 30px rgba(47,107,255,.25);
+    }
+
+    .btn.primary:hover{
+      box-shadow:0 20px 50px rgba(47,107,255,.35);
+    }
+
+    .btn i{
+      font-size:14px;
+    }
+
+    .searchBox{
+      position:relative;
+      min-width:240px;
+      flex:1;
+      max-width:420px;
+    }
+
+    .searchBox input{
+      width:100%;
+      border-radius:18px;
+      padding:11px 42px 11px 16px;
+      border:1px solid var(--border);
+      outline:none;
+      background:var(--card);
+      color:var(--text);
+      font-size:13px;
+      transition:.25s ease;
+      box-shadow:0 10px 22px rgba(0,0,0,.05);
+    }
+
+    .searchBox input:focus{
+      border-color:rgba(47,107,255,.55);
+      box-shadow:0 20px 40px rgba(47,107,255,.12);
+    }
+
+    .searchBox i{
+      position:absolute;
+      right:14px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      pointer-events:none;
+    }
+
+    main{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    @media(max-width:980px){
+      main{
+        grid-template-columns:1fr;
+      }
+
+      header{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .controls{
+        justify-content:space-between;
+      }
+
+      .searchBox{
+        min-width:100%;
+        max-width:100%;
+      }
+    }
+
+    .playerCard{
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:var(--glass);
+      backdrop-filter:var(--blur);
+      box-shadow:var(--shadow);
+      position:relative;
+      animation:fadeUp .9s ease forwards;
+    }
+
+    @keyframes fadeUp{
+      from{transform:translateY(18px); opacity:0;}
+      to{transform:translateY(0); opacity:1;}
+    }
+
+    .playerTop{
+      padding:16px 16px 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .playerInfo{
+      min-width:0;
+      flex:1;
+    }
+
+    .playerInfo h2{
+      font-size:16px;
+      font-weight:900;
+      line-height:1.4;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .playerInfo p{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .playerBadge{
+      padding:10px 14px;
+      border-radius:16px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .playerBadge i{
+      color:var(--primary);
+    }
+
+    .videoFrame{
+      width:100%;
+      aspect-ratio:16/9;
+      background:rgba(0,0,0,.06);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .videoFrame iframe{
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
+      opacity:0;
+      transform:scale(1.03);
+      transition:.45s ease;
+    }
+
+    .videoFrame.loaded iframe{
+      opacity:1;
+      transform:scale(1);
+    }
+
+    .loader{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      flex-direction:column;
+      color:var(--muted);
+      font-size:13px;
+      z-index:2;
+    }
+
+    .spinner{
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      border:4px solid rgba(0,0,0,.08);
+      border-top-color:var(--primary);
+      animation:spin 1s linear infinite;
+    }
+
+    body.dark .spinner{
+      border:4px solid rgba(255,255,255,.12);
+      border-top-color:var(--primary);
+    }
+
+    @keyframes spin{
+      from{transform:rotate(0deg);}
+      to{transform:rotate(360deg);}
+    }
+
+    .overlayTools{
+      position:absolute;
+      top:14px;
+      left:14px;
+      z-index:10;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .overlayBtn{
+      border:none;
+      cursor:pointer;
+      padding:10px 12px;
+      border-radius:16px;
+      font-size:12px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition:.25s ease;
+      background:rgba(255,255,255,.85);
+      color:#111;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+      backdrop-filter:blur(12px);
+      user-select:none;
+    }
+
+    body.dark .overlayBtn{
+      background:rgba(10,12,20,.7);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .overlayBtn:hover{
+      transform:translateY(-2px);
+    }
+
+    .overlayBtn:active{
+      transform:translateY(1px) scale(.98);
+    }
+
+    .overlayBtn i{
+      font-size:13px;
+      color:var(--primary);
+    }
+
+    .notePanel{
+      position:absolute;
+      bottom:14px;
+      left:14px;
+      right:14px;
+      z-index:11;
+      border-radius:22px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 25px 70px rgba(0,0,0,.25);
+      backdrop-filter:blur(14px);
+      overflow:hidden;
+      transform:translateY(14px);
+      opacity:0;
+      pointer-events:none;
+      transition:.35s ease;
+    }
+
+    body.dark .notePanel{
+      background:rgba(10,12,20,.78);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .notePanel.show{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+
+    .noteTop{
+      padding:12px 14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(0,0,0,.08);
+      gap:10px;
+    }
+
+    body.dark .noteTop{
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+
+    .noteTop h4{
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .noteTop button{
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.85);
+      cursor:pointer;
+      transition:.2s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    body.dark .noteTop button{
+      background:rgba(20,22,32,.75);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .noteTop button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+
+    .noteTop button i{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .notePanel textarea{
+      width:100%;
+      min-height:110px;
+      border:none;
+      outline:none;
+      resize:none;
+      padding:14px;
+      font-size:13px;
+      background:transparent;
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .rememberPop{
+      position:fixed;
+      z-index:999999;
+      padding:14px 16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 30px 80px rgba(0,0,0,.28);
+      backdrop-filter:blur(14px);
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      font-size:13px;
+      font-weight:900;
+      color:#111;
+      opacity:0;
+      transform:translateY(12px) scale(.96);
+      pointer-events:none;
+      transition:.35s ease;
+    }
+
+    body.dark .rememberPop{
+      background:rgba(10,12,20,.82);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .rememberPop.show{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      pointer-events:auto;
+    }
+
+    .rememberPop i{
+      color:var(--gold);
+      font-size:15px;
+      margin-top:4px;
+    }
+
+    .rememberPop button{
+      border:none;
+      cursor:pointer;
+      padding:10px 14px;
+      border-radius:16px;
+      font-size:12px;
+      font-weight:900;
+      background:linear-gradient(135deg, var(--primary), var(--primary2));
+      color:white;
+      box-shadow:0 18px 40px rgba(47,107,255,.22);
+      transition:.25s ease;
+    }
+
+    .rememberPop button:hover{
+      transform:translateY(-2px);
+    }
+
+    .rememberPop button:active{
+      transform:translateY(1px) scale(.98);
+    }
+
+    .sideCard{
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:var(--glass);
+      backdrop-filter:var(--blur);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      animation:fadeUp 1.05s ease forwards;
+    }
+
+    .sideHeader{
+      padding:16px 16px 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    .sideHeader h3{
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .count{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      padding:8px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:var(--card);
+    }
+
+    .list{
+      padding:0 10px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:560px;
+      overflow:auto;
+    }
+
+    .list::-webkit-scrollbar{
+      width:7px;
+    }
+
+    .list::-webkit-scrollbar-thumb{
+      background:rgba(0,0,0,.12);
+      border-radius:20px;
+    }
+
+    body.dark .list::-webkit-scrollbar-thumb{
+      background:rgba(255,255,255,.12);
+    }
+
+    .item{
+      padding:12px 12px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.5);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      cursor:pointer;
+      transition:.25s ease;
+      position:relative;
+      overflow:hidden;
+      transform:translateZ(0);
+    }
+
+    body.dark .item{
+      background:rgba(20,22,32,.55);
+    }
+
+    .item:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+      border-color:rgba(47,107,255,.25);
+    }
+
+    .item.active{
+      border-color:rgba(47,107,255,.55);
+      box-shadow:0 18px 50px rgba(47,107,255,.16);
+      background:rgba(47,107,255,.10);
+    }
+
+    .item.done{
+      border-color:rgba(255,204,51,.55);
+      box-shadow:0 18px 50px rgba(255,204,51,.14);
+      background:rgba(255,204,51,.10);
+    }
+
+    .itemLeft{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+      flex:1;
+    }
+
+    .thumbIcon{
+      width:44px;
+      height:44px;
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(47,107,255,.95), rgba(100,150,255,.95));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      box-shadow:0 14px 25px rgba(47,107,255,.25);
+      transition:.25s ease;
+    }
+
+    .item.done .thumbIcon{
+      background:linear-gradient(135deg, rgba(255,204,51,.95), rgba(255,160,0,.95));
+      box-shadow:0 14px 25px rgba(255,204,51,.25);
+    }
+
+    .thumbIcon i{
+      color:white;
+      font-size:15px;
+    }
+
+    .itemText{
+      min-width:0;
+      flex:1;
+    }
+
+    .itemText h4{
+      font-size:13px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      width:100%;
+    }
+
+    .itemText p{
+      font-size:11px;
+      margin-top:3px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      width:100%;
+    }
+
+    .itemRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-shrink:0;
+    }
+
+    .checkBtn{
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:var(--card);
+      cursor:pointer;
+      transition:.25s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+
+    .checkBtn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(0,0,0,.12);
+    }
+
+    .checkBtn i{
+      font-size:15px;
+      color:var(--muted);
+      transition:.25s ease;
+    }
+
+    .checkBtn.checked{
+      background:rgba(255,204,51,.18);
+      border-color:rgba(255,204,51,.55);
+      box-shadow:0 18px 45px rgba(255,204,51,.18);
+    }
+
+    .checkBtn.checked i{
+      color:var(--gold);
+      transform:scale(1.05);
+    }
+
+    .toast{
+      position:fixed;
+      top:18px;
+      left:50%;
+      transform:translateX(-50%) translateY(-10px) scale(.98);
+      z-index:999999999999;
+      padding:14px 16px;
+      border-radius:18px;
+      background:var(--bg2);
+      border:1px solid var(--border);
+      box-shadow:0 30px 80px rgba(0,0,0,.35);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:13px;
+      font-weight:900;
+      color:var(--text);
+      opacity:0;
+      pointer-events:none;
+      transition:.35s ease;
+      min-width:240px;
+      justify-content:center;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0) scale(1);
+    }
+
+    .toast i{
+      color:var(--gold);
+    }
+
+    footer{
+      margin-top:22px;
+      padding:20px 10px 25px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      animation:fadeUp 1.2s ease forwards;
+    }
+
+    footer a{
+      text-decoration:none;
+      font-weight:900;
+      color:var(--primary);
+      padding:8px 14px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:var(--glass);
+      backdrop-filter:var(--blur);
+      transition:.25s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+
+    footer a:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+
+    canvas{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:999999;
+    }
+
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999999;
+      opacity:0;
+      pointer-events:none;
+      transition:.3s ease;
+      backdrop-filter:blur(14px);
+    }
+
+    .modalOverlay.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .modal{
+      width:100%;
+      max-width:980px;
+      border-radius:28px;
+      background:var(--bg2);
+      border:1px solid var(--border);
+      box-shadow:0 40px 100px rgba(0,0,0,.45);
+      overflow:hidden;
+      transform:translateY(18px) scale(.97);
+      opacity:0;
+      transition:.35s ease;
+      max-height:90vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .modalOverlay.show .modal{
+      transform:translateY(0) scale(1);
+      opacity:1;
+    }
+
+    .modalTop{
+      padding:16px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid var(--border);
+      gap:12px;
+    }
+
+    .modalTop h3{
+      font-size:15px;
+      font-weight:900;
+    }
+
+    .closeModal{
+      width:44px;
+      height:44px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:var(--card);
+      cursor:pointer;
+      transition:.2s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .closeModal:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+
+    .closeModal i{
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .modalBody{
+      padding:14px;
+      overflow:auto;
+      flex:1;
+    }
+
+    .modeSelect{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .modeBtn{
+      flex:1;
+      min-width:200px;
+      border:none;
+      cursor:pointer;
+      padding:14px 16px;
+      border-radius:22px;
+      font-size:13px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      transition:.25s ease;
+      background:var(--card);
+      color:var(--text);
+      border:1px solid var(--border);
+      box-shadow:0 10px 22px rgba(0,0,0,.06);
+    }
+
+    .modeBtn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+
+    .modeBtn.active{
+      border-color:rgba(47,107,255,.55);
+      background:rgba(47,107,255,.10);
+      box-shadow:0 18px 55px rgba(47,107,255,.15);
+    }
+
+    .periodicFrame{
+      width:100%;
+      height:68vh;
+      border-radius:22px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.04);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .periodicFrame iframe{
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
+    }
+
+    @media(max-width:500px){
+      .overlayTools{
+        top:10px;
+        left:10px;
+      }
+
+      .overlayBtn{
+        padding:9px 10px;
+        border-radius:15px;
+      }
+
+      .playerTop{
+        padding:14px;
+      }
+    }
+
+
+
+
+.list{
+  padding:0 10px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height:560px;
+  overflow:auto;
+}
+
+.item{
+  padding:30px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.5);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  transition:.25s ease;
+  overflow:hidden;
+}
+
+body.dark .item{
+  background:rgba(20,22,32,.55);
+}
+
+.item:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 40px rgba(0,0,0,.12);
+  border-color:rgba(47,107,255,.25);
+}
+
+.item.active{
+  border-color:rgba(47,107,255,.55);
+  box-shadow:0 18px 50px rgba(47,107,255,.16);
+  background:rgba(47,107,255,.10);
+}
+
+.item.done{
+  border-color:rgba(255,204,51,.55);
+  box-shadow:0 18px 50px rgba(255,204,51,.14);
+  background:rgba(255,204,51,.10);
+}
+
+.itemLeft{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:1;
+  min-width:0;
+}
+
+.thumbIcon{
+  width:44px;
+  height:44px;
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(47,107,255,.95), rgba(100,150,255,.95));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 14px 25px rgba(47,107,255,.25);
+}
+
+.item.done .thumbIcon{
+  background:linear-gradient(135deg, rgba(255,204,51,.95), rgba(255,160,0,.95));
+  box-shadow:0 14px 25px rgba(255,204,51,.25);
+}
+
+.thumbIcon i{
+  color:white;
+  font-size:15px;
+}
+
+.itemText{
+  flex:1;
+  min-width:0;
+}
+
+.itemText h4{
+  font-size:13px;
+  font-weight:900;
+  width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:none;
+}
+
+.itemText p{
+  font-size:11px;
+  margin-top:3px;
+  color:var(--muted);
+  width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:none;
+}
+
+.itemRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+}
+
+.checkBtn{
+  width:42px;
+  height:42px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:var(--card);
+  cursor:pointer;
+  transition:.25s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.checkBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 28px rgba(0,0,0,.12);
+}
+
+.checkBtn i{
+  font-size:15px;
+  color:var(--muted);
+  transition:.25s ease;
+}
+
+.checkBtn.checked{
+  background:rgba(255,204,51,.18);
+  border-color:rgba(255,204,51,.55);
+  box-shadow:0 18px 45px rgba(255,204,51,.18);
+}
+
+.checkBtn.checked i{
+  color:var(--gold);
+  transform:scale(1.05);
+}
+
+  </style>
+</head>
+
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="page">
+
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="brandText">
+          <h1>شرح منهج 2ث كامل الترم التاني</h1>
+          <p>الفيديوهات محطوطه بلترتيب الصحيح للمنهج</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="searchBox">
+          <input id="searchInput" type="text" placeholder="ابحث عن حصة...">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <button class="btn primary" id="studyBtn">
+          <i class="fa-solid fa-pen-ruler"></i>
+          ذاكر
+        </button>
+
+        <button class="btn" id="periodicBtn">
+          <i class="fa-solid fa-atom"></i>
+          الجدول الدوري
+        </button>
+
+        <button class="btn" id="themeBtn">
+          <i class="fa-solid fa-moon"></i>
+          الثيم
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="playerCard">
+        <div class="playerTop">
+          <div class="playerInfo">
+            <h2 id="currentTitle">اختر فيديو من القائمة</h2>
+            <p id="currentDesc">الملاحظات والتذكير بيظهرلو والفيديو شغال</p>
+          </div>
+
+          <div class="playerBadge">
+            <i class="fa-brands fa-youtube"></i>
+            <span id="currentIndex">0 / 0</span>
+          </div>
+        </div>
+
+        <div class="videoFrame" id="videoFrame">
+          <div class="overlayTools">
+            <button class="overlayBtn" id="noteBtn">
+              <i class="fa-solid fa-note-sticky"></i>
+              ملحوظة
+            </button>
+
+            <button class="overlayBtn" id="rememberBtn">
+              <i class="fa-solid fa-bell"></i>
+              تذكر
+            </button>
+          </div>
+
+          <div class="notePanel" id="notePanel">
+            <div class="noteTop">
+              <h4 id="noteTitle">ملحوظة</h4>
+              <button id="closeNote">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <textarea id="noteArea" placeholder="اكتب ملحوظتك هنا..."></textarea>
+          </div>
+
+          <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <div>جاري تحميل الفيديو...</div>
+          </div>
+
+          <iframe id="player" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        </div>
+      </section>
+
+      <aside class="sideCard">
+        <div class="sideHeader">
+          <h3>قائمة الحصص</h3>
+          <div class="count" id="videoCount">0 فيديو</div>
+        </div>
+
+        <div class="list" id="videoList"></div>
+      </aside>
+    </main>
+
+    <footer>
+      برمج وصمم هذا الموقع بواسطة
+      <a href="https://wa.me/201558143429" target="_blank">mahmoud</a>
+    </footer>
+
+  </div>
+
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-star"></i>
+    <span id="toastText">تم</span>
+  </div>
+
+  <div class="rememberPop" id="rememberPop">
+    <i class="fa-solid fa-lightbulb"></i>
+
+    <div style="display:flex; flex-direction:column; gap:10px; min-width:260px;">
+      <div id="rememberText" style="font-weight:900;">تذكير</div>
+
+      <input id="rememberInput" type="text" placeholder="اكتب تذكير جديد..."
+        style="padding:10px 12px; border-radius:16px; border:1px solid rgba(0,0,0,.12); outline:none; font-weight:900; font-size:12px;">
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="rememberAdd">إضافة</button>
+        <button id="rememberDelete" style="background:rgba(255,70,70,.9); box-shadow:none;">حذف</button>
+        <button id="rememberOk">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modalOverlay" id="studyOverlay">
+    <div class="modal">
+      <div class="modalTop">
+        <h3>دفتر المذاكرة</h3>
+        <button class="closeModal" id="closeStudy">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modalBody">
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+          <button class="btn" id="penMode">
+            <i class="fa-solid fa-pen"></i>
+            قلم
+          </button>
+
+          <button class="btn" id="eraserMode">
+            <i class="fa-solid fa-eraser"></i>
+            ممحاة
+          </button>
+
+          <button class="btn" id="clearCanvas">
+            <i class="fa-solid fa-trash"></i>
+            مسح الرسم
+          </button>
+
+          <button class="btn primary" id="saveDrawing">
+            <i class="fa-solid fa-download"></i>
+            تحميل الرسم
+          </button>
+
+          <button class="btn" id="saveText">
+            <i class="fa-solid fa-file-lines"></i>
+            تحميل النص
+          </button>
+
+          <div class="btn" style="cursor:default;">
+            <i class="fa-solid fa-sliders"></i>
+            <input id="brushSize" type="range" min="2" max="20" value="5" style="width:120px;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div style="border-radius:22px; border:1px solid var(--border); background:var(--card); overflow:hidden;">
+            <div style="padding:12px 14px; border-bottom:1px solid var(--border); font-weight:900; font-size:13px;">
+              اكتب ملاحظاتك
+            </div>
+            <textarea id="studyText" style="width:100%; height:55vh; border:none; outline:none; resize:none; padding:14px; background:transparent; color:var(--text); font-size:13px; font-weight:700;" placeholder="اكتب اللي فهمته..."></textarea>
+          </div>
+
+          <div style="border-radius:22px; border:1px solid var(--border); background:var(--card); overflow:hidden; position:relative;">
+            <div style="padding:12px 14px; border-bottom:1px solid var(--border); font-weight:900; font-size:13px;">
+              ارسم مخطط أو فكرة
+            </div>
+            <canvas id="drawCanvas" style="width:100%; height:55vh; display:block; touch-action:none;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modalOverlay" id="periodicOverlay">
+    <div class="modal">
+      <div class="modalTop">
+        <h3>الجدول الدوري</h3>
+        <button class="closeModal" id="closePeriodic">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modalBody">
+        <div class="modeSelect">
+          <button class="modeBtn active" id="mode2d">
+            <i class="fa-solid fa-table-cells"></i>
+            عرض 2D
+          </button>
+
+          <button class="modeBtn" id="mode3d">
+            <i class="fa-solid fa-cube"></i>
+            عرض 3D
+          </button>
+        </div>
+
+        <div class="periodicFrame">
+          <iframe id="periodicFrame"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById("player");
+    const videoList = document.getElementById("videoList");
+    const currentTitle = document.getElementById("currentTitle");
+    const currentDesc = document.getElementById("currentDesc");
+    const currentIndex = document.getElementById("currentIndex");
+    const videoCount = document.getElementById("videoCount");
+    const searchInput = document.getElementById("searchInput");
+
+    const themeBtn = document.getElementById("themeBtn");
+    const videoFrame = document.getElementById("videoFrame");
+    const loader = document.getElementById("loader");
+
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toastText");
+
+    const confettiCanvas = document.getElementById("confetti");
+    const ctx = confettiCanvas.getContext("2d");
+
+    const noteBtn = document.getElementById("noteBtn");
+    const notePanel = document.getElementById("notePanel");
+    const closeNote = document.getElementById("closeNote");
+    const noteArea = document.getElementById("noteArea");
+    const noteTitle = document.getElementById("noteTitle");
+
+    const rememberBtn = document.getElementById("rememberBtn");
+    const rememberPop = document.getElementById("rememberPop");
+    const rememberOk = document.getElementById("rememberOk");
+    const rememberInput = document.getElementById("rememberInput");
+    const rememberAdd = document.getElementById("rememberAdd");
+    const rememberDelete = document.getElementById("rememberDelete");
+    const rememberText = document.getElementById("rememberText");
+
+    const studyBtn = document.getElementById("studyBtn");
+    const studyOverlay = document.getElementById("studyOverlay");
+    const closeStudy = document.getElementById("closeStudy");
+
+    const drawCanvas = document.getElementById("drawCanvas");
+    const drawCtx = drawCanvas.getContext("2d");
+
+    const brushSize = document.getElementById("brushSize");
+    const penMode = document.getElementById("penMode");
+    const eraserMode = document.getElementById("eraserMode");
+    const clearCanvas = document.getElementById("clearCanvas");
+    const saveDrawing = document.getElementById("saveDrawing");
+    const saveText = document.getElementById("saveText");
+    const studyText = document.getElementById("studyText");
+
+    const periodicBtn = document.getElementById("periodicBtn");
+    const periodicOverlay = document.getElementById("periodicOverlay");
+    const closePeriodic = document.getElementById("closePeriodic");
+    const periodicFrame = document.getElementById("periodicFrame");
+    const mode2d = document.getElementById("mode2d");
+    const mode3d = document.getElementById("mode3d");
+
+    function resizeCanvas(){
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let videos = JSON.parse(localStorage.getItem("videosDB")) || [
+      { name: "الاساسيات", url: "https://youtu.be/BIhikOQlCxQ?si=quyC4UizhfiILc1A" },
+      { name: "اسئله علي الاساسيات", url: "https://youtu.be/MvMbPp8O494?si=EgKEE6MSBR9O3Fxr" },
+      { name: "الاتحاد الكيميائي و الروابط الايونيه و التساهميه", url: "https://youtu.be/_0huMZOEVVQ?si=pNPqzZP7ooJSEA95" },
+      { name: "نظرية الثمانيات و نظرية رابطة التكافؤ", url: "https://youtu.be/KtjIQKsf8KY?si=sB7kPdsQI9jykHtD" },
+      { name: "نظريات تفسير الرابطه التساهميه و التهجين", url: "https://youtu.be/S8joIo50fNQ?si=tDITsUXwNHpN9Zvd" },
+      { name: "نظرية تنافر ازواج الالكترونات", url: "https://youtu.be/-ZjGmls39FU?si=OkTZmTNRjv2WCZMt" },
+      { name: "رابطه تناسقية و الروابط الفيزيائية", url: "https://youtu.be/HTL0mvuIOhw?si=mXXWeZXj9KLlpBGL" },
+      { name: "مراجعة مارس علي الباب الاول", url: "https://youtu.be/LccYiYrJHRc?si=vIuvUFYnttc0oiz1" },
+      { name: "عناصر الفئه S", url: "https://youtu.be/AEN7L5EYlTk?si=aaEy7eAkcHHD0q2A" },
+      { name: "عناصر الفئه S الجزء التاني", url: "https://youtu.be/Mu908T4gSug?si=OC2-gHZKlFpi7aIF" },
+      { name: "حل التقيمات الاسبوعيه", url: "https://youtu.be/ResQOKevgWg?si=ZpPI3D-fFuF8NNWV" },
+      { name: "عناصر الفئه P", url: "https://youtu.be/gSBtq8xOXh8?si=j-flxz9oMHSEXfPK" },
+      { name: "مراجعه الباب الثاني كامل", url: "https://youtu.be/gF85mlS6k40?si=XgOZ8cHZh2im-zDh" },
+      { name: "الكيمياء النووية", url: "https://youtu.be/2adZS1UPZ4A?si=MyIPvv45XMENppkF" },
+      { name: "التفاعلات النووية", url: "https://youtu.be/AWuRESiqN68?si=9X8PqAdSDfn25-Zh" },
+      { name: "النشاط الاشعاعي الصناعي", url: "https://youtu.be/VGRz-12Ww5c?si=6Jv3jnKxS2Fg03Y4" },
+      { name: "خلص المنهج", url: "https://www.youtube.com/live/OKRa0FxHL9Q?si=Jgoy0_-eTZmrDSGt" }
+    ];
+
+    let progress = JSON.parse(localStorage.getItem("progressDB")) || {};
+    let activeVideo = parseInt(localStorage.getItem("lastVideoIndex")) || 0;
+
+    let notesDB = JSON.parse(localStorage.getItem("notesDB")) || {};
+    let remindersDB = JSON.parse(localStorage.getItem("remindersDB")) || {};
+    let rememberState = JSON.parse(localStorage.getItem("rememberState")) || { enabled: false };
+    let rememberInterval = null;
+    let lastReminderIndex = {};
+
+    function showToast(text){
+      toastText.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2400);
+    }
+
+    function extractYouTubeID(link){
+      try{
+        const url = new URL(link);
+
+        if(url.hostname.includes("youtu.be")){
+          return url.pathname.replace("/", "");
+        }
+
+        if(url.searchParams.get("v")){
+          return url.searchParams.get("v");
+        }
+
+        if(url.pathname.includes("/embed/")){
+          return url.pathname.split("/embed/")[1];
+        }
+
+        return null;
+      }catch{
+        return null;
+      }
+    }
+
+    function saveAll(){
+      localStorage.setItem("videosDB", JSON.stringify(videos));
+      localStorage.setItem("progressDB", JSON.stringify(progress));
+      localStorage.setItem("lastVideoIndex", activeVideo);
+      localStorage.setItem("notesDB", JSON.stringify(notesDB));
+      localStorage.setItem("rememberState", JSON.stringify(rememberState));
+      localStorage.setItem("remindersDB", JSON.stringify(remindersDB));
+      localStorage.setItem("studyTextDB", studyText.value);
+      localStorage.setItem("drawingDB", drawCanvas.toDataURL("image/png"));
+    }
+
+    function getVideoReminders(index){
+      if(!remindersDB[index]) remindersDB[index] = [];
+      return remindersDB[index];
+    }
+
+    function updateReminderTextForVideo(index){
+      const list = getVideoReminders(index);
+      if(list.length > 0){
+        rememberText.textContent = list[0];
+      }else{
+        rememberText.textContent = "لا يوجد تذكيرات لهذه الحصة";
+      }
+    }
+
+    function loadVideo(index){
+      if(index < 0 || index >= videos.length) return;
+
+      activeVideo = index;
+      saveAll();
+
+      const vid = videos[index];
+      const id = extractYouTubeID(vid.url);
+
+      if(!id){
+        showToast("الرابط غير صالح");
+        return;
+      }
+
+      currentTitle.textContent = vid.name;
+      currentDesc.textContent = progress[index] ? "تم إنهاء هذه الحصة" : "لم يتم إنهاء هذه الحصة بعد";
+      currentIndex.textContent = `${index + 1} / ${videos.length}`;
+
+      noteTitle.textContent = "ملحوظة - " + vid.name;
+
+      loader.style.display = "flex";
+      videoFrame.classList.remove("loaded");
+
+      player.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+
+      setTimeout(() => {
+        loader.style.display = "none";
+        videoFrame.classList.add("loaded");
+      }, 650);
+
+      renderList();
+      loadNoteForVideo(index);
+      updateReminderTextForVideo(index);
+    }
+
+    function renderList(){
+      const searchValue = searchInput.value.trim().toLowerCase();
+      videoList.innerHTML = "";
+
+      let filtered = [];
+
+      videos.forEach((v, i) => {
+        if(v.name.toLowerCase().includes(searchValue)) filtered.push({ v, i });
+      });
+
+      videoCount.textContent = `${filtered.length} فيديو`;
+
+      filtered.forEach(({ v, i }) => {
+        const item = document.createElement("div");
+        item.className = "item";
+
+        if(i === activeVideo) item.classList.add("active");
+        if(progress[i]) item.classList.add("done");
+
+        const left = document.createElement("div");
+        left.className = "itemLeft";
+
+        const icon = document.createElement("div");
+        icon.className = "thumbIcon";
+        icon.innerHTML = `<i class="fa-solid fa-play"></i>`;
+
+        const text = document.createElement("div");
+        text.className = "itemText";
+        text.innerHTML = `
+          <h4>${v.name}</h4>
+          <p>${progress[i] ? "مكتملة" : "غير مكتملة"}</p>
+        `;
+
+        left.appendChild(icon);
+        left.appendChild(text);
+
+        const right = document.createElement("div");
+        right.className = "itemRight";
+
+        const checkBtn = document.createElement("div");
+        checkBtn.className = "checkBtn";
+        checkBtn.innerHTML = `<i class="fa-solid fa-check"></i>`;
+
+        if(progress[i]) checkBtn.classList.add("checked");
+
+        checkBtn.onclick = (e) => {
+          e.stopPropagation();
+
+          if(progress[i]){
+            delete progress[i];
+            showToast("تم إلغاء الإنجاز");
+          }else{
+            progress[i] = true;
+            showToast("تم إنهاء الحصة");
+            startConfetti();
+          }
+
+          saveAll();
+
+          if(i === activeVideo){
+            currentDesc.textContent = progress[i] ? "تم إنهاء هذه الحصة" : "لم يتم إنهاء هذه الحصة بعد";
+          }
+
+          renderList();
+        };
+
+        right.appendChild(checkBtn);
+
+        item.appendChild(left);
+        item.appendChild(right);
+
+        item.onclick = () => {
+          loadVideo(i);
+        };
+
+        videoList.appendChild(item);
+      });
+    }
+
+    function toggleTheme(){
+      document.body.classList.toggle("dark");
+      localStorage.setItem("themeMode", document.body.classList.contains("dark") ? "dark" : "light");
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon(){
+      const icon = themeBtn.querySelector("i");
+      if(document.body.classList.contains("dark")){
+        icon.className = "fa-solid fa-sun";
+      }else{
+        icon.className = "fa-solid fa-moon";
+      }
+    }
+
+    themeBtn.onclick = toggleTheme;
+
+    const savedTheme = localStorage.getItem("themeMode");
+    if(savedTheme === "dark") document.body.classList.add("dark");
+    updateThemeIcon();
+
+    searchInput.addEventListener("input", () => {
+      renderList();
+    });
+
+    function random(min, max){
+      return Math.random() * (max - min) + min;
+    }
+
+    let confettiPieces = [];
+    let confettiRunning = false;
+
+    function createConfetti(){
+      confettiPieces = [];
+      const count = 180;
+
+      for(let i=0; i<count; i++){
+        confettiPieces.push({
+          x: random(0, confettiCanvas.width),
+          y: random(-confettiCanvas.height, 0),
+          size: random(6, 12),
+          speedY: random(3, 7),
+          speedX: random(-2, 2),
+          rotate: random(0, Math.PI * 2),
+          rotateSpeed: random(0.03, 0.12),
+          opacity: random(0.6, 1),
+          type: Math.random() > 0.5 ? "rect" : "circle"
+        });
+      }
+    }
+
+    function drawConfetti(){
+      ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      confettiPieces.forEach(p => {
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotate);
+
+        const colors = [
+          "rgba(255,204,51,1)",
+          "rgba(255,160,0,1)",
+          "rgba(47,107,255,1)",
+          "rgba(90,140,255,1)",
+          "rgba(255,255,255,1)"
+        ];
+
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+
+        if(p.type === "rect"){
+          ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.7);
+        }else{
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size/2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.rotate += p.rotateSpeed;
+        p.opacity -= 0.004;
+      });
+
+      confettiPieces = confettiPieces.filter(p => p.opacity > 0 && p.y < confettiCanvas.height + 30);
+
+      if(confettiPieces.length > 0){
+        requestAnimationFrame(drawConfetti);
+      }else{
+        confettiRunning = false;
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+    }
+
+    function startConfetti(){
+      if(confettiRunning) return;
+      confettiRunning = true;
+      createConfetti();
+      drawConfetti();
+    }
+
+    function loadNoteForVideo(index){
+      noteArea.value = notesDB[index] || "";
+    }
+
+    noteBtn.onclick = () => {
+      notePanel.classList.toggle("show");
+      if(notePanel.classList.contains("show")){
+        noteArea.focus();
+      }
+    };
+
+    closeNote.onclick = () => {
+      notePanel.classList.remove("show");
+    };
+
+    noteArea.addEventListener("input", () => {
+      notesDB[activeVideo] = noteArea.value;
+      saveAll();
+    });
+
+    function placeRememberPop(){
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      const x = random(20, w - 360);
+      const y = random(80, h - 200);
+
+      rememberPop.style.left = x + "px";
+      rememberPop.style.top = y + "px";
+    }
+
+    function showReminderFromDB(){
+      if(!rememberState.enabled) return;
+
+      const list = getVideoReminders(activeVideo);
+
+      if(list.length === 0){
+        rememberText.textContent = "لا يوجد تذكيرات لهذه الحصة";
+      }else{
+        if(lastReminderIndex[activeVideo] === undefined){
+          lastReminderIndex[activeVideo] = 0;
+        }
+
+        const msg = list[lastReminderIndex[activeVideo] % list.length];
+        lastReminderIndex[activeVideo]++;
+
+        rememberText.textContent = msg;
+      }
+
+      placeRememberPop();
+      rememberPop.classList.add("show");
+
+      setTimeout(() => {
+        rememberPop.classList.remove("show");
+      }, 5500);
+    }
+
+    function startRememberSystem(){
+      if(rememberInterval) clearInterval(rememberInterval);
+
+      rememberInterval = setInterval(() => {
+        showReminderFromDB();
+      }, 300000);
+    }
+
+    rememberBtn.onclick = () => {
+      rememberState.enabled = !rememberState.enabled;
+      saveAll();
+
+      if(rememberState.enabled){
+        showToast("تم تشغيل التذكير");
+        showReminderFromDB();
+      }else{
+        showToast("تم إيقاف التذكير");
+        rememberPop.classList.remove("show");
+      }
+    };
+
+    rememberOk.onclick = () => {
+      rememberPop.classList.remove("show");
+    };
+
+    rememberAdd.onclick = () => {
+      const txt = rememberInput.value.trim();
+      if(txt.length < 2){
+        showToast("اكتب تذكير صحيح");
+        return;
+      }
+
+      const list = getVideoReminders(activeVideo);
+      list.push(txt);
+
+      remindersDB[activeVideo] = list;
+      rememberInput.value = "";
+
+      saveAll();
+      updateReminderTextForVideo(activeVideo);
+      showToast("تم إضافة التذكير");
+    };
+
+    rememberDelete.onclick = () => {
+      const list = getVideoReminders(activeVideo);
+
+      if(list.length === 0){
+        showToast("لا يوجد شيء للحذف");
+        return;
+      }
+
+      const currentText = rememberText.textContent.trim();
+      const index = list.indexOf(currentText);
+
+      if(index !== -1){
+        list.splice(index, 1);
+      }else{
+        list.pop();
+      }
+
+      remindersDB[activeVideo] = list;
+
+      saveAll();
+      updateReminderTextForVideo(activeVideo);
+      showToast("تم حذف التذكير");
+    };
+
+    rememberInput.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        rememberAdd.click();
+      }
+    });
+
+    startRememberSystem();
+
+    function openStudy(){
+      studyOverlay.classList.add("show");
+      setTimeout(() => {
+        setupDrawingCanvas();
+        studyText.focus();
+      }, 250);
+    }
+
+    function closeStudyFunc(){
+      studyOverlay.classList.remove("show");
+      saveAll();
+    }
+
+    studyBtn.onclick = openStudy;
+    closeStudy.onclick = closeStudyFunc;
+
+    studyOverlay.onclick = (e) => {
+      if(e.target === studyOverlay) closeStudyFunc();
+    };
+
+    let drawingMode = "pen";
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    function setupDrawingCanvas(){
+      const rect = drawCanvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+
+      const savedImg = localStorage.getItem("drawingDB");
+
+      drawCanvas.width = Math.floor(rect.width * dpr);
+      drawCanvas.height = Math.floor(rect.height * dpr);
+
+      drawCtx.setTransform(1, 0, 0, 1, 0, 0);
+      drawCtx.scale(dpr, dpr);
+
+      drawCtx.lineCap = "round";
+      drawCtx.lineJoin = "round";
+
+      if(savedImg && savedImg.startsWith("data:image")){
+        const img = new Image();
+        img.onload = () => {
+          drawCtx.drawImage(img, 0, 0, rect.width, rect.height);
+        };
+        img.src = savedImg;
+      }
+    }
+
+    function getCanvasPos(e){
+      const rect = drawCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const cx = Math.max(0, Math.min(rect.width, x));
+      const cy = Math.max(0, Math.min(rect.height, y));
+
+      return { x: cx, y: cy };
+    }
+
+    function startDraw(e){
+      isDrawing = true;
+      const p = getCanvasPos(e);
+      lastX = p.x;
+      lastY = p.y;
+      drawCanvas.setPointerCapture(e.pointerId);
+    }
+
+    function moveDraw(e){
+      if(!isDrawing) return;
+
+      const p = getCanvasPos(e);
+
+      drawCtx.lineWidth = parseInt(brushSize.value);
+      drawCtx.lineCap = "round";
+      drawCtx.lineJoin = "round";
+
+      if(drawingMode === "eraser"){
+        drawCtx.globalCompositeOperation = "destination-out";
+        drawCtx.strokeStyle = "rgba(0,0,0,1)";
+      }else{
+        drawCtx.globalCompositeOperation = "source-over";
+        drawCtx.strokeStyle = "rgba(47,107,255,1)";
+      }
+
+      drawCtx.beginPath();
+      drawCtx.moveTo(lastX, lastY);
+      drawCtx.lineTo(p.x, p.y);
+      drawCtx.stroke();
+
+      lastX = p.x;
+      lastY = p.y;
+    }
+
+    function endDraw(){
+      if(!isDrawing) return;
+      isDrawing = false;
+      saveAll();
+    }
+
+    penMode.onclick = () => {
+      drawingMode = "pen";
+      showToast("وضع القلم");
+    };
+
+    eraserMode.onclick = () => {
+      drawingMode = "eraser";
+      showToast("وضع الممحاة");
+    };
+
+    drawCanvas.addEventListener("pointerdown", startDraw);
+    drawCanvas.addEventListener("pointermove", moveDraw);
+    drawCanvas.addEventListener("pointerup", endDraw);
+    drawCanvas.addEventListener("pointercancel", endDraw);
+
+    clearCanvas.onclick = () => {
+      const rect = drawCanvas.getBoundingClientRect();
+      drawCtx.clearRect(0, 0, rect.width, rect.height);
+      saveAll();
+      showToast("تم مسح الرسم");
+    };
+
+    saveDrawing.onclick = () => {
+      const link = document.createElement("a");
+      link.download = "drawing.png";
+      link.href = drawCanvas.toDataURL("image/png");
+      link.click();
+    };
+
+    saveText.onclick = () => {
+      const blob = new Blob([studyText.value], {type:"text/plain"});
+      const link = document.createElement("a");
+      link.download = "notes.txt";
+      link.href = URL.createObjectURL(blob);
+      link.click();
+    };
+
+    studyText.addEventListener("input", () => {
+      saveAll();
+    });
+
+    function loadStudyData(){
+      const savedText = localStorage.getItem("studyTextDB");
+      if(savedText) studyText.value = savedText;
+    }
+
+    function openPeriodic(){
+      periodicOverlay.classList.add("show");
+      enableZoomForPeriodic();
+      loadPeriodic2D();
+    }
+
+    function closePeriodicFunc(){
+      periodicOverlay.classList.remove("show");
+      periodicFrame.src = "";
+      disableZoomForMain();
+    }
+
+    periodicBtn.onclick = openPeriodic;
+    closePeriodic.onclick = closePeriodicFunc;
+
+    periodicOverlay.onclick = (e) => {
+      if(e.target === periodicOverlay) closePeriodicFunc();
+    };
+
+    function loadPeriodic2D(){
+      mode2d.classList.add("active");
+      mode3d.classList.remove("active");
+      periodicFrame.src = "2d.html";
+    }
+
+    function loadPeriodic3D(){
+      mode3d.classList.add("active");
+      mode2d.classList.remove("active");
+      periodicFrame.src = "3d.html";
+    }
+
+    mode2d.onclick = loadPeriodic2D;
+    mode3d.onclick = loadPeriodic3D;
+
+    function disableZoomForMain(){
+      document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+    }
+
+    function enableZoomForPeriodic(){
+      document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
+    }
+
+    if(activeVideo >= videos.length) activeVideo = 0;
+
+    renderList();
+    loadVideo(activeVideo);
+    loadStudyData();
+
+    window.addEventListener("resize", () => {
+      if(studyOverlay.classList.contains("show")){
+        setupDrawingCanvas();
+      }
+    });
+  </script>
+
+</body>
+</html>
